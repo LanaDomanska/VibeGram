@@ -1,0 +1,172 @@
+* {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+.profile {
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+}
+
+.editBtn, .followBtn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  
+}
+
+.bio p {
+  margin-top: 0.5rem;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.postsGrid {
+  text-align: center;
+  color: #888;
+}
+.postImage {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.postsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 8px;
+  margin-top: 2rem;
+}
+
+.postImage {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.postImage:hover {
+  transform: scale(1.03);
+}
+.website {
+  color: #00376b;
+  font-size: 14px;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+/* .website:hover {
+  text-decoration: underline;
+} */
+ .website {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.website img {
+  width: 14px;
+  height: 14px;
+  opacity: 0.7;
+}
+
+.website a {
+  color: #00376B;
+  font-size: 14px;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+/* .website a:hover {
+  text-decoration: underline;
+} */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.messageBtn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.avatarIcon {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 300px;
+  width: 100%;
+}
+
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+  text-align: center;
+}
+

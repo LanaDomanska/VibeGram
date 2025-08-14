@@ -1,0 +1,53 @@
+.container {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - 80px); /* 40px слева + 40px справа */
+  max-width: 350px;
+}
+
+.paperMain {
+  /* padding: 40px; */
+  text-align: center;
+ 
+  border: 1px solid #ccc;
+  /* margin-bottom: 26px; */
+      /* width: 100%; */
+  /* max-width: 350px;  */
+ /* margin: 26px 40px  26px 40px; */
+  padding: 26px 40px  26px 40px;
+
+
+  
+}
+
+.paperFooter {
+  margin-top: 16px;
+  padding: 26px 40px  26px 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+
+
+  
+}
+
+.logo {
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.captionText {
+  margin-top: 16px;
+  font-size: 0.75rem;
+  color: #666;
+}
+ .imageContainer{
+ width: 50%;
+ height: auto;
+ margin: 0 auto;
+}
+.logoImage{
+   width: 100%;
+ height: auto;
+}

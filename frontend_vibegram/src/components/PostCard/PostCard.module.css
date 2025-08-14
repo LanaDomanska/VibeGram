@@ -1,0 +1,147 @@
+.card {
+  background-color: #fff;
+  border: none;
+  border-bottom: 1px solid #dbdbdb;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px; /* отступ между карточками */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 12px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.likes {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0 12px;
+}
+
+.caption {
+  padding: 4px 12px;
+  font-size: 14px;
+  color: #262626;
+}
+
+.viewComments {
+  padding: 4px 12px 12px;
+  font-size: 14px;
+  color: #8e8e8e;
+  cursor: pointer;
+}
+/* src/components/PostCard/PostCard.module.css */
+
+.card {
+  background-color: #fff;
+  border: none;
+  border-bottom: 1px solid #dbdbdb;
+  overflow: hidden;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 12px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.likes {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0 12px;
+}
+
+.caption {
+  padding: 4px 12px;
+  font-size: 14px;
+  color: #262626;
+}
+
+.viewComments {
+  padding: 4px 12px 12px;
+  font-size: 14px;
+  color: #8e8e8e;
+  cursor: pointer;
+}
+.authorLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}

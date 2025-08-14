@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px; 
+  /* background-color: #f0f0f0;  */
+    height: 100vh;
+  padding: 20px;
+  border-right: 1px solid #dbdbdb; /* ← Вот вертикальная линия */
+}
+
+.content {
+  flex: 1; /* занимает оставшееся пространство */
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1; /* основной контент растягивается */
+  padding: 20px;
+  background-color: white;
+  overflow-y: auto;
+}
+
+.footer {
+  height: 60px; /* высота футера */
+  background-color: #ddd;
+}

@@ -1,0 +1,58 @@
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+.title {
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.profileBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.newPhotoBtn {
+  text-transform: none;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #0095f6;
+  border-color: #0095f6;
+  border: 1px solid #0095f6;
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.newPhotoBtn:hover {
+  background-color: #f0f8ff;
+  border-color: #0077cc;
+  color: #0077cc;
+}
+
+.userText {
+  margin-bottom: 24px;
+}
+
+.saveButton {
+  margin-top: 20px;
+  background-color: #0095f6;
+  color: #fff;
+  text-transform: none;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.saveButton:hover {
+  background-color: #0077cc;
+}

@@ -1,0 +1,86 @@
+.feed {
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Базовая сетка */
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px 30px;
+  max-width: 900px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Ошибки и пустые состояния */
+.error {
+  color: red;
+  margin: 20px 0;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  color: #aaa;
+  font-size: clamp(16px, 2vw, 18px);
+  text-align: center;
+}
+
+.emptyContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20%;
+  height: 60vh;
+  align-items: center;
+}
+
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+  text-align: center;
+}
+
+/* ==== Адаптив ==== */
+
+/* Планшеты */
+@media (max-width: 1024px) {
+  .feed {
+    padding: 20px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 768px) {
+  .postsGrid {
+    grid-template-columns: 1fr; /* одна колонка */
+    gap: 20px;
+  }
+
+  .feed {
+    padding: 15px;
+  }
+
+  .emptyContainer {
+    padding-right: 0;
+    justify-content: center;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 480px) {
+  .feed {
+    padding: 10px;
+  }
+
+  .empty {
+    font-size: 14px;
+  }
+}

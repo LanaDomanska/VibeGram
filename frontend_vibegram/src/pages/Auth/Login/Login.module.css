@@ -1,0 +1,93 @@
+.container {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 1440px;
+  padding: 36px;
+  margin: 0 auto;
+  margin-top: 86px;
+
+}
+
+.imageContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 30%;
+  object-fit: contain; 
+}
+
+.previewImage {
+  max-height: 100%; /* Максимальная высота = высоте контейнера */
+  width: auto; /* Ширина подстраивается пропорционально */
+  object-fit: scale-down; /* Ключевое свойство - уменьшает, но не обрезает */
+}
+
+.formContainer {
+  flex: 1;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  
+}
+
+
+.signupPrompt {
+  width: 100%;
+  max-width: 350px;
+  /* margin: 1.5rem auto 0; */
+  /* padding: 1.5rem; */
+  border: 1px solid #dbdbdb;
+  text-align: center;
+  padding: 24px !important;
+
+}
+
+
+.signupPrompt .promptText {
+  margin-right: 8px;
+}
+
+
+.signupPrompt .signupLink {
+  color: #1976d2;
+  font-weight: 500;
+}
+
+/* @media (max-width: 768px) {
+  .loginWrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .imageContainer {
+    max-width: 100%;
+    height: 200px;
+  }
+
+  .formContainer {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .signupPrompt {
+    padding: 1rem;
+  }
+} */
