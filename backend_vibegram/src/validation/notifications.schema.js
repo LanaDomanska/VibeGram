@@ -10,9 +10,3 @@ export const FeedPostSchema = Yup.object().shape({
     }),
 });
 
-// export type FeedPostFormData = Yup.InferType<typeof FeedPostSchema>;
-
-// export const feedPostResolver: Resolver<FeedPostFormData> = async (values, context, options) => {
-//   const schema = FeedPostSchema;
-//   return schema.validate(values, { abortEarly: false });
-// };

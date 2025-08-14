@@ -25,7 +25,7 @@ const Footer = () => {
             Create
           </a>
         </nav>
-        <p className={styles.copyright}>© {new Date().getFullYear()} ICHgram</p>
+        <p className={styles.copyright}>© {new Date().getFullYear()} VibeGram</p>
       </div>
     </footer>
   );

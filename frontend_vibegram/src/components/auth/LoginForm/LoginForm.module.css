@@ -1,4 +1,3 @@
-/* src/components/LoginForm/LoginForm.module.css */
 .form {
   max-width: 350px;
   width: 100%;
@@ -20,13 +19,13 @@
 .dividerText {
   color: var(--text-secondary) !important;
 }
-.imageContainer{
- width: 100%;
- height: auto;
+.imageContainer {
+  width: 100%;
+  height: auto;
 }
-.logoImage{
-   width: 50%;
- height: auto;
+.logoImage {
+  width: 50%;
+  height: auto;
 }
 .forgotLink {
   text-decoration: none;

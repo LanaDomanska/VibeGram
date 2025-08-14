@@ -1,4 +1,3 @@
-// src/controllers/posts.controller.js
 import * as postsService from "../services/posts.service.js";
 import * as likesService from "../services/likes.service.js";
 
@@ -10,7 +9,6 @@ import User from "../models/User.js";
 import Post from "../models/Post.js";
 import HttpException from "../utils/HttpException.js";
 
-// ----------------- Создание поста -----------------
 export const createPost = async (req, res, next) => {
   try {
     await validateBody(postCreateSchema, req.body);
@@ -27,7 +25,6 @@ export const createPost = async (req, res, next) => {
   }
 };
 
-// ----------------- Лента (обогащено лайками) -----------------
 export const getFeedPosts = async (req, res, next) => {
   try {
     const { posts } = await postsService.getFeedPosts(req.user.id);
@@ -51,7 +48,6 @@ export const getFeedPosts = async (req, res, next) => {
   }
 };
 
-// ----------------- Посты пользователя (обогащено лайками) -----------------
 export const getUserPosts = async (req, res, next) => {
   try {
     const userId = req.params.userId;
@@ -76,7 +72,6 @@ export const getUserPosts = async (req, res, next) => {
   }
 };
 
-// ----------------- Один пост (обогащено лайками) -----------------
 export const getPostById = async (req, res, next) => {
   try {
     const post = await postsService.getPostById(req.params.postId);
@@ -95,7 +90,6 @@ export const getPostById = async (req, res, next) => {
   }
 };
 
-// ----------------- По username (обогащено лайками) -----------------
 export const getPostsByUsername = async (req, res, next) => {
   try {
     const { username } = req.params;
@@ -126,7 +120,6 @@ export const getPostsByUsername = async (req, res, next) => {
   }
 };
 
-// ----------------- Удаление поста -----------------
 export const deletePost = async (req, res, next) => {
   try {
     const userId = req.user.id;
@@ -134,7 +127,6 @@ export const deletePost = async (req, res, next) => {
 
     await postsService.deletePost(postId, userId);
 
-    // Удаляем уведомления по этому посту
     await Notification.deleteMany({ post: postId });
 
     res.json({ message: "Post deleted" });
@@ -143,7 +135,6 @@ export const deletePost = async (req, res, next) => {
   }
 };
 
-// ----------------- Обновление поста -----------------
 export const updatePost = async (req, res, next) => {
   try {
     const { postId } = req.params;
@@ -154,7 +145,6 @@ export const updatePost = async (req, res, next) => {
   }
 };
 
-// ----------------- Загрузка изображения -----------------
 export const uploadPostImage = async (req, res, next) => {
   try {
     if (!req.file) {

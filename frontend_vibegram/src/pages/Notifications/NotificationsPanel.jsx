@@ -7,13 +7,14 @@ import api from "../../api/axios";
 import { API_URL } from "../../config";
 import styles from "./NotificationsPanel.module.css";
 
-/* helpers */
+import DefaultAvatar from "@/assets/images/VibeGramLogo.png";
+
 const FILES_ORIGIN = API_URL.replace(/\/api\/?$/, "");
 const clean = (p) => String(p || "").replace(/^\/?public/, "").replace(/^\/+/, "");
 
 const srcForUser = (u) => {
-  const raw = u?.avatarUrl ?? u?.avatar ?? "";
-  if (!raw) return "/img/avatar-placeholder.png";
+  const raw = u?.avatarUrl ?? u?.avatar ?? u?.profile?.avatar ?? u?.photo ?? u?.image ?? u?.author?.avatar ?? "";
+  if (!raw) return DefaultAvatar;                
   if (/^https?:\/\//i.test(raw)) return raw;
   return `${FILES_ORIGIN}/${clean(raw)}`;
 };
@@ -50,7 +51,6 @@ export default function NotificationsPanel() {
         )
       );
     } catch (e) {
-      // не критично
       console.error(e);
     }
   };
@@ -59,7 +59,6 @@ export default function NotificationsPanel() {
     if ((n.type === "like" || n.type === "comment") && n.post?._id)
       return `/posts/${n.post._id}`;
     if (n.type === "message") return `/messages/${n.fromUser?._id}`;
-    // follow (или резерв)
     return `/profile/${n.fromUser?.username}`;
   };
 
@@ -67,7 +66,6 @@ export default function NotificationsPanel() {
     if ((n.type === "like" || n.type === "comment") && n.post) {
       return srcForPost(n.post);
     }
-    // follow / message — показываем аватар отправителя
     return srcForUser(n.fromUser);
   };
 
@@ -91,7 +89,6 @@ export default function NotificationsPanel() {
               className={`${styles.item} ${n.readAt ? "" : styles.unread}`}
               onClick={() => markRead(n._id)}
             >
-              {/* аватар слева */}
               <Link
                 to={`/profile/${from.username}`}
                 onClick={(e) => {
@@ -105,14 +102,13 @@ export default function NotificationsPanel() {
                   alt={from.username}
                   className={styles.avatar}
                   onError={(e) => {
-                    if (!/avatar-placeholder/.test(e.currentTarget.src)) {
-                      e.currentTarget.src = "/img/avatar-placeholder.png";
+                    if (e.currentTarget.src !== DefaultAvatar) { 
+                      e.currentTarget.src = DefaultAvatar;       
                     }
                   }}
                 />
               </Link>
 
-              {/* текст */}
               <div className={styles.text}>
                 <Link
                   to={`/profile/${from.username}`}
@@ -166,7 +162,6 @@ export default function NotificationsPanel() {
                 </div>
               </div>
 
-              {/* превью справа: пост для like/comment; аватар для follow/message */}
               <Link
                 to={hrefForRight(n)}
                 className={styles.thumbLink}
@@ -180,11 +175,8 @@ export default function NotificationsPanel() {
                   alt="preview"
                   className={styles.thumb}
                   onError={(e) => {
-                    if (!/placeholder/.test(e.currentTarget.src)) {
-                      e.currentTarget.src =
-                        n.type === "like" || n.type === "comment"
-                          ? "/img/post-placeholder.png"
-                          : "/img/avatar-placeholder.png";
+                    if (e.currentTarget.src !== DefaultAvatar) { 
+                      e.currentTarget.src = DefaultAvatar;
                     }
                   }}
                 />

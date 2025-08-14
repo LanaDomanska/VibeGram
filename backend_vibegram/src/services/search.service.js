@@ -1,4 +1,3 @@
-// services/search.service.js
 import User from "../models/User.js";
 
 const escapeRx = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -10,7 +9,7 @@ export async function searchUsersByUsername(query, limit = 10) {
   const q = escapeRx(raw.toLowerCase());
 
   const primary = await User.find(
-    { username: { $regex: `^${q}` } },   // username храним в lower-case
+    { username: { $regex: `^${q}` } },   
     { username: 1, avatar: 1 }
   ).limit(limit).lean();
 
@@ -24,6 +23,5 @@ export async function searchUsersByUsername(query, limit = 10) {
     users.push(...more);
   }
 
-  // Возвращаем без преобразований — склеим URL в контроллере
-  return users; // [{ _id, username, avatar }]
+  return users; 
 }

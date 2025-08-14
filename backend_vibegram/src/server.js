@@ -1,4 +1,3 @@
-// src/server/index.js (или твой файл запуска)
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
@@ -46,8 +45,7 @@ const startServer = () => {
     return mime.getType(filePath) || "application/octet-stream";
   }
 
-  // ---------- Статика (ДО API-роутов) ----------
-  // /public/* (как у тебя было)
+
   app.use(
     "/public",
     express.static(path.join(__dirname, "../public"), {
@@ -60,10 +58,8 @@ const startServer = () => {
     })
   );
 
-  // /posts/* (как у тебя было)
   app.use("/posts", express.static(path.join(__dirname, "../public/posts")));
 
-  // ✅ Новое: /avatars/* — чтобы открывались ссылки вида http://localhost:3000/avatars/...
   app.use(
     "/avatars",
     express.static(path.join(__dirname, "../public/avatars"), {
@@ -75,9 +71,7 @@ const startServer = () => {
       },
     })
   );
-  // ---------- /Статика ----------
 
-  // API Routes
   app.use("/api/auth", authRouter);
   app.use("/api/users", usersRouter);
   app.use("/api/posts", postsRouter);
@@ -90,7 +84,6 @@ const startServer = () => {
   app.use("/api/follows", followsRouter);
   app.use("/api/explore", exploreRouter);
 
-  // Error handling
   app.use(notFoundHandler);
   app.use(errorHandler);
 

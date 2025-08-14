@@ -1,4 +1,3 @@
-// src/components/common/Sidebar/Sidebar.jsx
 
 import React, { useState } from "react";
 import {
@@ -19,7 +18,6 @@ import NotificationsPanel from "../../../pages/Notifications/NotificationsPanel"
 import SearchPanel from "../../common/panels/SearchPanel";
 import SettingsModal from "../../modals/SettingsModal";
 import VibeGram from "../../../assets/images/VibeGram.png";
-// import defaultAvatar from "/images/default-avatar.png"; // путь к твоему файлу
 
 
 
@@ -92,7 +90,6 @@ const getAvatarUrl = (avatar) => {
         <nav>
           <ul className={styles.menu}>
             {menuItems.map((item) => {
-              // Подменяем иконку профиля на аватар пользователя, если он авторизован и у него есть аватар
              const iconElement =
   item.id === "profile" ? (
 <img
@@ -135,13 +132,11 @@ const getAvatarUrl = (avatar) => {
         </nav>
       </aside>
 
-      {/* Create Post Modal */}
       <CreatePostModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
       />
 
-      {/* Notifications Panel */}
       {isNotifOpen && (
         <>
           <div className={styles.panelWrapper}>
@@ -154,7 +149,6 @@ const getAvatarUrl = (avatar) => {
         </>
       )}
 
-      {/* Search Panel */}
       {isSearchOpen && (
         <>
           <div className={styles.panelWrapper}>

@@ -1,4 +1,3 @@
-// validationSchemas/AvatarSchema.js
 import * as Yup from 'yup';
 import { Resolver } from '@hookform/resolvers/yup';
 
@@ -12,8 +11,3 @@ export const AvatarSchema = Yup.object().shape({
     }),
 });
 
-// export type AvatarFormData = Yup.InferType<typeof AvatarSchema>;
-
-// export const avatarResolver: Resolver<AvatarFormData> = async (values, context, options) => {
-//   return AvatarSchema.validate(values, { abortEarly: false });
-// };

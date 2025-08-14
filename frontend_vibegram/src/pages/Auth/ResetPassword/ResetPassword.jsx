@@ -10,7 +10,7 @@ import {
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import styles from "../ResetPassword/ResetPassword.module.css";
 import Troublelogging from "../../../assets/Troublelogging.svg";
-import api from "@/api/axios"; // <— единый инстанс
+import api from "@/api/axios";
 
 const ResetPassword = () => {
   const [input, setInput] = useState("");

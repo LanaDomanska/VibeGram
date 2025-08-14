@@ -23,7 +23,6 @@ const CreatePost = () => {
     }
 
     try {
-      // 1. Загрузить изображение
       const formData = new FormData();
       formData.append("image", imageFile);
 
@@ -33,13 +32,12 @@ const CreatePost = () => {
 
       const imageUrl = imageRes.data.imageUrl;
 
-      // 2. Создать пост
       await api.post("/posts", {
         caption,
         imageUrl,
       });
 
-      navigate("/"); // вернуться в ленту
+      navigate("/"); 
     } catch (err) {
       console.error("Ошибка при создании поста:", err);
       console.log("Ответ от сервера:", err.response?.data); 

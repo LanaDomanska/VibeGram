@@ -27,9 +27,7 @@ const Register = () => {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // useEffect(() => {
-  //   if (user) navigate("/edit-profile", { replace: true });
-  // }, [user, navigate]);
+
 
   const handleChange = (e) => {
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -47,7 +45,6 @@ const Register = () => {
   try {
     setSubmitting(true);
 
-    // 1) регистрация
     await api.post("/auth/register", {
       email: form.email.trim(),
       username: form.username.trim(),
@@ -55,16 +52,13 @@ const Register = () => {
       confirmPassword: form.confirmPassword,
     });
 
-    // 2) сразу логинимся
     await login({
       usernameOrEmail: form.username.trim(),
       password: form.password,
     });
 
-    // 3) ставим флаг для приветствия
     localStorage.setItem("firstLogin", "true");
 
-    // 4) делаем **редирект вручную после login**
     navigate("/edit-profile", { replace: true });
 
   } catch (err) {

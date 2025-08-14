@@ -17,16 +17,12 @@ import { searchUsers } from "../controllers/users.controller.js";
 
 const usersRouter = Router();
 
-// Текущий пользователь
 usersRouter.get("/me", authenticate, getCurrentUser);
 
-// Обновление своего профиля
 usersRouter.put("/", authenticate, validateBody(userUpdateSchema), updateUserProfile);
 
-// Удаление (себя или если админ)
 usersRouter.delete("/:id", authenticate, deleteUser);
 
-// Просмотр чужого профиля
 usersRouter.get("/:username", authenticate, getUserProfile);
 usersRouter.post(
   "/avatar",

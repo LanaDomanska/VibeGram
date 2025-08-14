@@ -1,35 +1,28 @@
-// src/components/modals/PostModal.jsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./PostModal.module.css";
 import api from "../../api/axios";
 import { API_URL } from "../../config";
-
 import moreIcon from "../../assets/icons/more.svg";
 import heartIcon from "../../assets/icons/heart.svg";
 import LikeFilledIcon from "../../assets/icons/likeFilled.png";
 import commentIcon from "../../assets/icons/comment.svg";
-import commentLike from "../../assets/icons/commentLike.png";          // ← иконка лайка коммента
-import commentLikeFilled from "../../assets/icons/commentLikeFilled.png"; // ← заполненная
+import commentLike from "../../assets/icons/commentLike.png";          
+import commentLikeFilled from "../../assets/icons/commentLikeFilled.png"; 
 import emojiIcon from "../../assets/icons/emoji.svg";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
-
 import PostActionsModal from "./PostActionsModal";
 import DefaultAvatar from "../../assets/images/VibeGramLogo.png";
 import useLike from "@/hooks/useLike";
 
-/* -------------------- helpers -------------------- */
 
-// origin для файлов (срезаем /api)
 const FILES_ORIGIN = API_URL.replace(/\/api\/?$/, "");
-// чистим путь: убираем /public и ведущие слэши
 const clean = (p) =>
   String(p || "")
     .replace(/^\/?public/, "")
     .replace(/^\/+/, "");
 
-// единый helper для юзер-аватара
 const srcForUser = (u) => {
   const raw = u?.avatarUrl ?? u?.avatar ?? "";
   if (!raw) return DefaultAvatar;
@@ -37,7 +30,6 @@ const srcForUser = (u) => {
   return `${FILES_ORIGIN}/${clean(raw)}`;
 };
 
-// «сколько времени назад»
 const RTF = new Intl.RelativeTimeFormat(
   (navigator.language || "ru").toLowerCase().startsWith("ru") ? "ru" : "en",
   { numeric: "auto" }
@@ -62,7 +54,6 @@ function timeAgo(date, now = Date.now()) {
   return RTF.format(yr, "year");
 }
 
-/* -------------------- component -------------------- */
 
 export default function PostModal({ post, onClose, onDeleted }) {
   const [p, setP] = useState(post);
@@ -72,7 +63,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
   const [showActions, setShowActions] = useState(false);
   const [sending, setSending] = useState(false);
 
-  // теперь обновляем "сейчас" раз в минуту — для time-ago
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 60_000);
@@ -82,7 +72,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
-  // дотягиваем полный пост, если пришёл "тонкий"
   useEffect(() => {
     setP(post);
     const needsAuthor = !post?.author?.avatar && !post?.author?.avatarUrl;
@@ -97,7 +86,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
     }
   }, [post]);
 
-  // грузим комментарии (обогащённые лайками из бэка)
   useEffect(() => {
     if (post?._id) {
       api
@@ -109,7 +97,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
 
   if (!p) return null;
 
-  // лайк поста через общий хук
   const { liked, likes, toggleLike } = useLike({
     postId: p?._id,
     initialLiked: p?.isLiked,
@@ -117,17 +104,14 @@ export default function PostModal({ post, onClose, onDeleted }) {
     onChange: (v) => setP((prev) => (prev ? { ...prev, ...v } : prev)),
   });
 
-  // аватар автора поста
   const avatarSrc = srcForUser(p.author);
 
-  // картинка поста
   const imageSrc = useMemo(() => {
     const raw = p.imageUrl || "";
     if (/^https?:\/\//i.test(raw)) return raw;
     return `${FILES_ORIGIN}/${clean(raw)}`;
   }, [p.imageUrl]);
 
-  // отправка комментария
   const submitComment = async (e) => {
     e?.preventDefault?.();
     const txt = comment.trim();
@@ -166,7 +150,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
     }
   };
 
-  // лайк комментария (оптимистично)
   const toggleCommentLike = async (e, commentId) => {
     e?.stopPropagation?.();
     const current = comments.find((x) => x._id === commentId);
@@ -175,7 +158,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
     const wasLiked = !!current.isLiked;
     const next = !wasLiked;
 
-    // оптимистичное обновление
     setComments((prev) =>
       prev.map((x) =>
         x._id === commentId
@@ -188,7 +170,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
       const fn = next ? api.post : api.delete;
       await fn(`/comment-likes/${commentId}`);
     } catch (err) {
-      // откат при ошибке
       setComments((prev) =>
         prev.map((x) =>
           x._id === commentId
@@ -276,10 +257,8 @@ export default function PostModal({ post, onClose, onDeleted }) {
             />
           </div>
 
-          {/* Линия под шапкой */}
           <div className={styles.headerDivider} />
 
-          {/* Описание — с маленьким аватаром слева */}
           <div className={styles.captionBlock}>
             <Link
               to={`/profile/${p.author.username}`}
@@ -316,7 +295,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
             </div>
           </div>
 
-          {/* Комментарии — с аватарками, авторами, временем и лайком справа */}
           <div className={styles.comments}>
             {comments.map((c) => {
               const au = c.author || {};
@@ -368,7 +346,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
                     <span className={styles.commentText}>{c.text}</span>
                   </div>
 
-                  {/* лайк комментария справа */}
                   <div className={styles.commentAction}>
                     <button
                       className={`${styles.commentLikeBtn} ${c.isLiked ? styles.liked : ""}`}
@@ -389,7 +366,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
             })}
           </div>
 
-          {/* Дата поста */}
           <div
             className={styles.date}
             title={p.createdAt ? new Date(p.createdAt).toLocaleString() : ""}
@@ -397,7 +373,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
             {p.createdAt ? timeAgo(p.createdAt, now) : ""}
           </div>
 
-          {/* Лайки и действия под постом */}
           <div className={styles.footer}>
             <div className={styles.actions}>
               <img
@@ -419,7 +394,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
             <div className={styles.likes}>{likes} likes</div>
           </div>
 
-          {/* Форма комментария */}
           <form className={styles.commentForm} onSubmit={submitComment}>
             <img
               src={emojiIcon}
@@ -449,7 +423,6 @@ export default function PostModal({ post, onClose, onDeleted }) {
         </div>
       </div>
 
-      {/* Модальное меню действий */}
       {showActions && (
         <PostActionsModal
           onClose={() => setShowActions(false)}

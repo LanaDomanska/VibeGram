@@ -1,13 +1,12 @@
 .footer {
   position: fixed;
   bottom: 0;
-  left: 240px; /* Сдвигаем вправо на ширину Sidebar */
-  right: 0; /* Растягиваем на всю ширину */
+  left: 240px; 
+  right: 0; 
   background-color: #fff;
   color: #737373;
   padding: 1rem 0;
-  /* border-top: 1px solid #dbdbdb; */
-  /* z-index: 100; Чтобы Footer был поверх контента */
+
 }
 
 .container {

@@ -1,4 +1,3 @@
-/* src/components/modals/SettingsModal.module.css */
 .overlay {
   position: fixed;
   inset: 0;
@@ -37,8 +36,3 @@
   background-color: #f7f7f7;
   color: red;
 }
-
-/* .deleteBtn {
-  /* color: red; */
-  /* font-weight: bold; */
-

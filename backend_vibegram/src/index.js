@@ -8,9 +8,8 @@ const bootstrap = async () => {
   try {
     await connectDatabase();
 
-    const server = startServer(); // возвращаем `server` из server.js
+    const server = startServer(); 
 
-    // Запускаем WebSocket сервер, если он есть
     startWebsocketServer(server);
     
   } catch (error) {

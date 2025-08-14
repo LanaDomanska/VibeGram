@@ -5,7 +5,7 @@ import PostCard from "../../components/PostCard/PostCard";
 import styles from "./Home.module.css";
 import { useAuth } from "../../hooks/useAuth";
 import PostModal from "../../components/modals/PostModal";
-import CreatePostModal from "../../components/modals/CreatePostModal"; // Импорт модалки создания
+import CreatePostModal from "../../components/modals/CreatePostModal"; 
 import AddIcon from "@mui/icons-material/Add";
 import { Button, Typography } from "@mui/material";
 
@@ -16,7 +16,7 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState("");
   const [selectedPost, setSelectedPost] = useState(null);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Состояние для модалки создания
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); 
 
   const fetchPosts = useCallback(async () => {
     try {
@@ -47,7 +47,6 @@ export default function Home() {
       {posts.length === 0 && !error && (
         <div className={styles.emptyContainer}>
           <div className={styles.emptyContent}>
-            {/* <AddIcon style={{ fontSize: 60, color: "#aaa" }} /> */}
             <Typography variant="h6" style={{ margin: "16px 0" }}>
                No posts to display
             </Typography>

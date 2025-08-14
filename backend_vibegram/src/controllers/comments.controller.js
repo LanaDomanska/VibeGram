@@ -7,7 +7,6 @@ import Notification from "../models/Notification.js";
 import HttpException from "../utils/HttpException.js";
 
 export const createComment = async (req, res) => {
-  // ожидаем { text: string } — как на фронте
   await validateBody(commentCreateSchema, req.body);
 
   const postId = req.params.postId;
@@ -16,7 +15,6 @@ export const createComment = async (req, res) => {
 
   const comment = await commentsService.createComment(userId, postId, text);
 
-  // уведомление автору поста (если комментатор не автор)
   const post = await Post.findById(postId);
   if (post && post.author.toString() !== userId.toString()) {
     await createNotification({
@@ -27,7 +25,7 @@ export const createComment = async (req, res) => {
     });
   }
 
-  res.status(201).json(comment); // фронт умеет принять и объект, и {comment: obj}
+  res.status(201).json(comment); 
 };
 
 export const deleteComment = async (req, res) => {
@@ -35,7 +33,6 @@ export const deleteComment = async (req, res) => {
   const commentId = req.params.commentId;
 
   const comment = await commentsService.deleteComment(commentId, userId);
-  // подчистим уведомление
   await Notification.findOneAndDelete({
     type: "comment",
     fromUser: userId,

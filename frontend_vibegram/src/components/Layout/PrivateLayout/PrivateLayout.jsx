@@ -8,12 +8,10 @@ const PrivateLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Проверяем размер экрана
   useEffect(() => {
     const checkScreenSize = () => {
       const mobile = window.innerWidth <= 480;
       setIsMobile(mobile);
-      // На мобильных устройствах по умолчанию скрываем сайдбар
       if (mobile) {
         setIsSidebarOpen(false);
       } else {
@@ -27,7 +25,6 @@ const PrivateLayout = () => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Функция переключения сайдбара
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -40,7 +37,7 @@ const PrivateLayout = () => {
         onToggle={toggleSidebar}
       />
       <div className={`${styles.content} ${!isSidebarOpen && !isMobile ? styles.contentFull : ''}`}>
-        <Outlet /> {/* Основной контент */}
+        <Outlet /> 
       </div>
       <Footer />
     </div>

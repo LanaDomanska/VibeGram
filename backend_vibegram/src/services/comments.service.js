@@ -1,7 +1,6 @@
 import Comment from "../models/Comment.js";
 import HttpException from "../utils/HttpException.js";
 
-// создать комментарий и вернуть с популяцией автора
 export async function createComment(userId, postId, text) {
   const created = await Comment.create({
     post: postId,
@@ -13,7 +12,6 @@ export async function createComment(userId, postId, text) {
     .populate("author", "username avatar")
     .lean();
 
-  // нормализуем key avatar -> avatarUrl (удобно для фронта)
   return {
     ...withAuthor,
     author: withAuthor.author
@@ -22,7 +20,6 @@ export async function createComment(userId, postId, text) {
   };
 }
 
-// список комментариев поста (со всплывающими авторами)
 export async function getPostComments(postId) {
   const list = await Comment.find({ post: postId })
     .populate("author", "username avatar")
@@ -37,7 +34,6 @@ export async function getPostComments(postId) {
   }));
 }
 
-// удалить свой комментарий
 export async function deleteComment(commentId, userId) {
   const deleted = await Comment.findOneAndDelete({
     _id: commentId,

@@ -26,17 +26,6 @@
   border-bottom: 1px solid #ddd;
 }
 
-/* .shareBtn {
-  text-transform: none;
-  font-weight: 600;
-  color: #0095F6;
-  background-color:#0095F6 ;
-
-}
-.shareBtn:disabled {
-  color: #0095F6;
-} */
-
 .content {
   flex: 1;
   display: flex;
@@ -98,7 +87,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* margin-top: 8px; */
 }
 
 .emojiIcon {
@@ -120,7 +108,7 @@
   top: 30px;
   left: 0;
   z-index: 1000;
-    transform: scale(0.8);
+  transform: scale(0.8);
   transform-origin: top left;
 }
 

@@ -4,7 +4,6 @@ import { emailValidation } from "../constants/users.constants.js";
 const userSchema = new Schema({
   fullName: {
     type: String,
-    // required: true,
     trim: true,
   },
   username: {
@@ -26,7 +25,7 @@ const userSchema = new Schema({
   },
   avatar: {
     type: String,
-    default: "/assets/images/default-avatar.png", // путь до аватара по умолчанию
+    default: "/assets/images/default-avatar.png", 
   },
   bio: {
     type: String,

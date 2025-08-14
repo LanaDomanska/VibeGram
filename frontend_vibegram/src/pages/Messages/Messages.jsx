@@ -1,13 +1,11 @@
-// src/pages/Messages/Messages.jsx
 import React from "react";
 import styles from "./Messages.module.css";
-import api from "../../api/axios";                // у тебя так в проекте
-import { socket } from "../../lib/socket";        // твой клиент socket.io
-import { useAuth } from "../../hooks/useAuth";    // у тебя хук здесь
+import api from "@/api/axios";                
+import { socket } from "@/lib/socket";        
+import { useAuth } from "@/hooks/useAuth";    
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-// компактное относительное время
 function formatRelative(ts) {
   if (!ts) return "";
   const d = new Date(ts);
@@ -23,7 +21,7 @@ function formatRelative(ts) {
 }
 const idEq = (a, b) => String(a || "") === String(b || "");
 
-// origin API без /api на конце (для картинок /public/avatars/..)
+
 const API_ORIGIN = (api.defaults.baseURL || "").replace(/\/api\/?$/, "");
 const fileUrl = (path) => {
   if (!path) return "";
@@ -32,7 +30,6 @@ const fileUrl = (path) => {
   return `${API_ORIGIN}${p}`;
 };
 
-// унификация структуры сообщений (id вместо популяции)
 const normalizeMsg = (m) => ({
   _id: m._id,
   sender: typeof m.sender === "object" && m.sender?._id ? m.sender._id : m.sender,
@@ -51,27 +48,26 @@ export default function Messages() {
   const ownerName = (me?.name && me.name.trim()) || me?.username || "Messages";
   const myId = me?._id || me?.id || null;
 
-  const [inbox, setInbox] = React.useState([]);        // [{ user, lastMessage, unreadCount }]
-  const [selected, setSelected] = React.useState(null); // user
-  const [messages, setMessages] = React.useState([]);   // нормализованные
+  const [inbox, setInbox] = React.useState([]);        
+  const [selected, setSelected] = React.useState(null); 
+  const [messages, setMessages] = React.useState([]);   
   const [draft, setDraft] = React.useState("");
   const [loadingInbox, setLoadingInbox] = React.useState(true);
   const [inboxError, setInboxError] = React.useState(null);
 const navigate = useNavigate();
 
   const bodyRef = React.useRef(null);
-  const activePeerRef = React.useRef(null); // защита от гонки
+  const activePeerRef = React.useRef(null); 
 
 const [searchParams] = useSearchParams();
 
-  // зарегистрировать пользователя на сокете (карта connectedUsers на бэке)
+  
   React.useEffect(() => {
     const uid = String(me?._id || me?.id || "");
     if (!uid) return;
     socket.emit("register", uid);
   }, [me]);
 
-  // helper: upsert чата в левом списке с пересортировкой
   const upsertInbox = React.useCallback(({ user, content, createdAt, unreadDelta = 0 }) => {
     setInbox((prev) => {
       const idx = prev.findIndex((i) => String(i.user._id) === String(user._id));
@@ -91,7 +87,6 @@ const [searchParams] = useSearchParams();
     });
   }, []);
 
-  // загрузка inbox
   const loadInbox = async ({ autoPick = true } = {}) => {
     try {
       setLoadingInbox(true);
@@ -112,13 +107,12 @@ const [searchParams] = useSearchParams();
     }
   };
 
-  // загрузка истории (без кэша, чтобы не было 304)
   const loadThread = async (peerId) => {
     if (!peerId) return;
     const thisPeer = String(peerId);
     try {
    const { data } = await api.get(`/messages/${peerId}`, {
-     params: { _: Date.now() }, // этого достаточно, префлайта не будет
+     params: { _: Date.now() }, 
    });
       if (activePeerRef.current !== thisPeer) return;
       setMessages((data || []).map(normalizeMsg));
@@ -130,14 +124,11 @@ const [searchParams] = useSearchParams();
     }
   };
 
-  // первичная подгрузка; если пришли по ?to= — не выбираем первого из inbox
   React.useEffect(() => {
     const hasQueryTo = !!searchParams.get("to");
     loadInbox({ autoPick: !hasQueryTo });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // открыть чат по объекту user
   const openChat = async (user) => {
     setSelected(user);
     activePeerRef.current = String(user._id);
@@ -146,7 +137,6 @@ const [searchParams] = useSearchParams();
     if (myId) socket.emit("messageRead", { from: user._id, to: myId });
   };
 
-  // если пришли из профиля: /messages?to=<id>&uname=&avatar=
   React.useEffect(() => {
     const to = searchParams.get("to");
     if (!to) return;
@@ -155,7 +145,6 @@ const [searchParams] = useSearchParams();
       username: searchParams.get("uname") || "user",
       avatar: searchParams.get("avatar") || "",
     };
-    // сразу показать его слева, даже без сообщений
     upsertInbox({
       user: userFromParams,
       content: "",
@@ -163,15 +152,12 @@ const [searchParams] = useSearchParams();
       unreadDelta: 0,
     });
     openChat(userFromParams);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  // подписки на сокет: твои события newMessage/messageSent + совместимость с message:new
   React.useEffect(() => {
     const onIncoming = (raw) => {
       const msg = normalizeMsg(raw);
 
-      // если открыт этот диалог — добавляем в ленту
       if (selected && (idEq(msg.sender, selected._id) || idEq(msg.recipient, selected._id))) {
         setMessages((p) => [...p, msg]);
         requestAnimationFrame(() => {
@@ -179,7 +165,6 @@ const [searchParams] = useSearchParams();
         });
       }
 
-      // определить собеседника (кроме меня)
       const partnerId = String(msg.sender) === String(myId) ? msg.recipient : msg.sender;
       const existing = inbox.find((i) => String(i.user._id) === String(partnerId))?.user;
       const userObj =
@@ -188,7 +173,6 @@ const [searchParams] = useSearchParams();
           ? selected
           : { _id: partnerId, username: "user", avatar: "" });
 
-      // +1 непрочитанное, если сообщение пришло мне и чат сейчас не открыт
       const isInOpenChat =
         selected && (idEq(selected._id, msg.sender) || idEq(selected._id, msg.recipient));
       const unreadDelta =
@@ -204,10 +188,8 @@ const [searchParams] = useSearchParams();
 
     const onSent = (raw) => {
       const base = normalizeMsg(raw);
-      // сервер может не прислать sender — подставим себя
       const msg = { ...base, sender: base.sender || (me?._id || me?.id) };
 
-      // заменим оптимистичное в правой колонке
       setMessages((prev) => {
         const i = prev.findIndex(
           (m) => m._optimistic && idEq(m.recipient, msg.recipient) && m.content === msg.content
@@ -220,7 +202,6 @@ const [searchParams] = useSearchParams();
         return [...prev, msg];
       });
 
-      // и обновим/создадим чат слева (без роста непрочитанных)
       const partnerId = msg.recipient;
       const existing = inbox.find((i) => String(i.user._id) === String(partnerId))?.user;
       const userObj = existing || selected || { _id: partnerId, username: "user", avatar: "" };
@@ -234,9 +215,9 @@ const [searchParams] = useSearchParams();
 
     const onDeleted = () => loadInbox({ autoPick: false });
 
-    socket.on("newMessage", onIncoming);   // событие твоего сервера для получателя
-    socket.on("messageSent", onSent);      // событие твоего сервера для отправителя
-    socket.on("message:new", onIncoming);  // совместимость, если шлёшь такое имя
+    socket.on("newMessage", onIncoming);   
+    socket.on("messageSent", onSent);     
+    socket.on("message:new", onIncoming);  
     socket.on("messageDeleted", onDeleted);
 
     return () => {
@@ -245,10 +226,10 @@ const [searchParams] = useSearchParams();
       socket.off("message:new", onIncoming);
       socket.off("messageDeleted", onDeleted);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [selected, me, inbox]);
 
-  // отправка через твой протокол (sendMessage без ACK)
+  
   const sendBySocket = () => {
     const text = draft.trim();
     if (!text || !selected?._id) return;
@@ -263,11 +244,11 @@ const [searchParams] = useSearchParams();
       _optimistic: true,
     };
 
-    // сразу показать справа
+  
     setMessages((p) => [...p, optimistic]);
     setDraft("");
 
-    // оптимистично обновим/добавим чат слева
+  
     upsertInbox({
       user: selected,
       content: text,
@@ -275,9 +256,7 @@ const [searchParams] = useSearchParams();
       unreadDelta: 0,
     });
 
-    // сервер слушает "sendMessage"
     socket.emit("sendMessage", { to: selected._id, from: myId, content: text });
-    // НИЧЕГО не перечитываем таймером — он и затирал ленту.
   };
 
   const onKeyDown = (e) => {
@@ -331,7 +310,6 @@ const [searchParams] = useSearchParams();
         </div>
       </aside>
 
-      {/* Окно чата */}
       <section className={styles.chat}>
         <header className={styles.header}>
           {selected ? (
@@ -349,9 +327,7 @@ const [searchParams] = useSearchParams();
    disabled={!selected}
    onClick={() => {
      if (!selected) return;
-     // если это ты — на свою страницу, иначе на страницу собеседника
      navigate(selected._id === myId ? "/profile" : `/profile/${selected.username}`);
-     //  если у тебя путь другой, поменяй на `/users/${selected.username}`
    }}
  >
    View profile

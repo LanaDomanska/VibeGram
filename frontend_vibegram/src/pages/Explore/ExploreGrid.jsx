@@ -25,7 +25,6 @@ export default function Explore() {
   return (
     <div className={styles.grid}>
       {items.map((p) => {
-        // ты уже делала replace("/public","") — оставляю как на фронте, чтоб ничего не ломать
         const src = (p.image || "").replace("/public", "");
         return (
           <a key={p._id} className={styles.card} href={`/p/${p._id}`} aria-label="Открыть пост">

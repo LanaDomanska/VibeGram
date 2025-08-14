@@ -52,8 +52,8 @@ const CreatePostModal = ({ isOpen, onClose }) => {
       onClose();
       navigate("/");
     } catch (err) {
-      console.error("Ошибка при создании поста:", err);
-      setError(err.response?.data?.message || "Ошибка при публикации");
+      console.error("Error creating post:", err);
+      setError(err.response?.data?.message || "Error publishing post");
     } finally {
       setLoading(false);
     }

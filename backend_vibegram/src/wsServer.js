@@ -1,10 +1,9 @@
-// src/server/ws/index.js (или как у тебя называется)
 import { Server } from "socket.io";
-import jwt from "jsonwebtoken";                 // опционально, если хочешь авторизовывать по токену
+import jwt from "jsonwebtoken";                 
 import Message from "./models/Message.js";
 import mongoose from "mongoose";
 
-const connectedUsers = new Map(); // userId -> socketId
+const connectedUsers = new Map(); 
 
 export default function startWebsocketServer(server) {
   const io = new Server(server, {
@@ -14,14 +13,12 @@ export default function startWebsocketServer(server) {
     },
   });
 
-  // доступ глобально (твой код на них опирается)
   global._io = io;
   global._connectedUsers = connectedUsers;
 
   io.on("connection", (socket) => {
     console.log("🔌 socket connected:", socket.id);
 
-    // === 1) Авторизация (опционально). Если не хочешь — можно удалить блок ниже.
     try {
       const raw =
         socket.handshake.auth?.token ||
@@ -35,10 +32,8 @@ export default function startWebsocketServer(server) {
         }
       }
     } catch {
-      /* не рвём соединение — можно работать через register */
     }
 
-    // === 2) Явная регистрация (твоя логика; фронт может вызвать socket.emit("register", myId))
     socket.on("register", (userId) => {
       const uid = String(userId);
       connectedUsers.set(uid, socket.id);
@@ -47,8 +42,7 @@ export default function startWebsocketServer(server) {
       socket.broadcast.emit("userOnline", { userId: uid });
     });
 
-    // === 3) Отправка сообщения (понимаем оба формата)
-    // A) твой формат:  "sendMessage" { to, from, content }
+
     socket.on("sendMessage", async (payload, ack) => {
       const to = String(payload?.to || "");
       const from = String(payload?.from || socket.data.userId || "");
@@ -56,7 +50,6 @@ export default function startWebsocketServer(server) {
       await handleSend(io, { from, to, text: content }, ack);
     });
 
-    // B) формат компонента: "message:send" { recipientId, text } + ack
     socket.on("message:send", async (payload, ack) => {
       const to = String(payload?.recipientId || "");
       const from = String(socket.data.userId || payload?.from || "");
@@ -64,7 +57,6 @@ export default function startWebsocketServer(server) {
       await handleSend(io, { from, to, text }, ack);
     });
 
-    // === 4) Прочитано
     socket.on("messageRead", async ({ from, to }) => {
       try {
         await Message.updateMany(
@@ -78,7 +70,6 @@ export default function startWebsocketServer(server) {
       }
     });
 
-    // === 5) typing индикатор
     socket.on("typing", ({ from, to }) => {
       const rs = connectedUsers.get(String(to));
       if (rs) io.to(rs).emit("typing", { from: String(from) });
@@ -88,7 +79,6 @@ export default function startWebsocketServer(server) {
       if (rs) io.to(rs).emit("stopTyping", { from: String(from) });
     });
 
-    // === 6) disconnect
     socket.on("disconnect", () => {
       for (const [userId, sockId] of connectedUsers.entries()) {
         if (sockId === socket.id) {
@@ -104,10 +94,7 @@ export default function startWebsocketServer(server) {
   console.log("📡 WebSocket server up");
 }
 
-/**
- * Единый обработчик сохранения и рассылки сообщения.
- * Понимает оба клиента и всегда отвечает ack, чтобы фронт не падал по timeout.
- */
+
 async function handleSend(io, { from, to, text }, ack) {
   try {
     if (!from || !to || !text) throw new Error("from, to, text are required");
@@ -118,7 +105,6 @@ async function handleSend(io, { from, to, text }, ack) {
       content: text,
     });
 
-    // эмитим СОБЫТИЯ В ОБОИХ НАЗВАНИЯХ для совместимости
     const payloadForRecipient = {
       _id: message._id,
       content: message.content,
@@ -148,7 +134,6 @@ async function handleSend(io, { from, to, text }, ack) {
       io.to(sSock).emit("messageSent", payloadForSender);
     }
 
-    // обязательно вернуть ack, чтобы на фронте не срабатывал timeout
     if (typeof ack === "function") ack(null, payloadForSender);
   } catch (err) {
     console.error("send error:", err);

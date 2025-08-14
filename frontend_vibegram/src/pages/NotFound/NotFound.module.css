@@ -1,8 +1,7 @@
 .container {
   display: flex;
   align-items: center;
-  /* min-height: 100vh; */
-  padding: 4rem 2rem 2rem 4rem; /* Убрано верхний отступ (0), оставлены: право, низ, лево */
+  padding: 4rem 2rem 2rem 4rem;
   max-width: 1200px;
   margin: 0 auto;
   gap: 1.5rem;
@@ -41,14 +40,14 @@
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    padding: 0 1rem 1rem; /* Также убрано верхний отступ для мобильной версии */
+    padding: 0 1rem 1rem;
     gap: 1rem;
   }
-  
+
   .imageContainer {
     margin: 0 0 1rem 0;
   }
-  
+
   .textContent {
     padding-left: 0;
     text-align: center;

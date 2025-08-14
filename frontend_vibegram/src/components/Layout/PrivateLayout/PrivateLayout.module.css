@@ -6,10 +6,10 @@
 
 .content {
   flex: 1;
-  margin-left: 265px; 
+  margin-left: 265px;
   padding: 20px;
   min-height: 100vh;
-  padding-bottom: 80px; 
+  padding-bottom: 80px;
   padding-top: 0;
   transition: margin-left 0.3s ease;
 }
@@ -35,37 +35,34 @@
   transition: margin 0.3s ease;
 }
 
-/* Планшеты (768px и меньше) */
 @media screen and (max-width: 768px) {
   .content {
     margin-left: 240px;
     padding: 15px;
   }
-  
+
   .contentExpanded {
     margin-left: 90px;
   }
 }
 
-/* Мобильные устройства (480px и меньше) */
 @media screen and (max-width: 480px) {
   .content {
     margin-left: 0;
     padding: 10px;
     padding-bottom: 80px;
   }
-  
+
   .contentExpanded {
     margin-left: 0;
   }
 }
 
-/* Очень маленькие экраны (320px и меньше) */
 @media screen and (max-width: 320px) {
   .content {
     padding: 8px;
   }
-  
+
   .footer {
     height: 50px;
   }

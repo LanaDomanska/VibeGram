@@ -3,7 +3,7 @@ import HttpException from "../utils/HttpException.js";
 import Follow from "../models/Follow.js";
 
 export const createPost = async (postData) => {
-  return await Post.create(postData); // здесь всё уже валидно
+  return await Post.create(postData); 
 };
 
 
@@ -34,14 +34,11 @@ export const updatePost = async (id, userId, updateData) => {
   return post;
 };
 export const getFeedPosts = async (userId) => {
-  // Получаем ID всех пользователей, на кого подписан текущий
   const following = await Follow.find({ follower: userId }).select("following");
   const followingIds = following.map(f => f.following.toString());
 
-  // Добавляем самого себя (чтобы видеть свои посты)
   followingIds.push(userId);
 
-  // Находим посты авторов из списка
   const posts = await Post.find({ author: { $in: followingIds } })
     .populate("author", "username avatar")
     .sort({ createdAt: -1 });

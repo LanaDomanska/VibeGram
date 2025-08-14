@@ -11,14 +11,13 @@
 .modal {
   display: flex;
   background: #fff;
-  max-width: 1100px; /* ← было 900px */
+  max-width: 1100px;
   width: 95%;
-  height: 85vh;       /* чуть выше */
+  height: 85vh;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
-
 
 .imageBox {
   flex: 2;
@@ -37,21 +36,11 @@
   overflow-y: auto;
 }
 
-
 .image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
-/* .info {
-  flex: 1;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow-y: auto;
-} */
 
 .header {
   display: flex;
@@ -139,6 +128,7 @@
   font-weight: 600;
   cursor: pointer;
 }
+
 .moreBtn {
   background: none;
   border: none;
@@ -151,11 +141,13 @@
   gap: 10px;
   margin-bottom: 12px;
 }
+
 .actions img {
   width: 24px;
   height: 24px;
   cursor: pointer;
 }
+
 .emojiIcon {
   width: 24px;
   height: 24px;
@@ -170,19 +162,14 @@
   left: 0;
   z-index: 10;
 }
+
 .moreIcon {
   margin-left: auto;
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
-.authorLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: inherit;
-}
+
 .authorLink {
   display: inline-flex;
   align-items: center;
@@ -227,18 +214,18 @@
   color: inherit;
   text-decoration: none;
 }
+
 .commentText {
   white-space: pre-wrap;
   word-break: break-word;
 }
-/* линия под шапкой */
+
 .headerDivider {
   height: 1px;
   background: #e6e6e6;
   margin: 10px 0 14px;
 }
 
-/* блок описания с аватаром слева */
 .captionBlock {
   display: flex;
   align-items: flex-start;
@@ -266,22 +253,93 @@
   line-height: 1.35;
 }
 
-/* уже были, но на всякий случай */
-.authorLink { display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:inherit; }
+.authorLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
 
-.comments { display:flex; flex-direction:column; gap:10px; }
-.comment  { display:flex; align-items:flex-start; gap:10px; }
-.commentAuthor { flex:0 0 auto; }
-.commentAvatar { width:28px; height:28px; border-radius:50%; object-fit:cover; display:block; }
-.commentBody { display:flex; flex-direction:column; gap:4px; }
-.commentHeaderRow { display:flex; align-items:center; gap:8px; }
-.username { color:inherit; text-decoration:none; }
-.commentMeta { color:#8e8e8e; font-size:12px; }
-.commentText { white-space:pre-wrap; word-break:break-word; }
-.commentAction { display:flex; align-items:center; gap:6px; margin-left:6px; }
-.commentLikeBtn { border:none; background:transparent; padding:0; cursor:pointer; line-height:0; }
-.commentLikeIcon { width:16px; height:16px; display:block; }
-.commentLikesCount { font-size:12px; color:#8e8e8e; min-width:16px; text-align:right; }
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.commentAuthor {
+  flex: 0 0 auto;
+}
+
+.commentAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.commentBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.commentHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.username {
+  color: inherit;
+  text-decoration: none;
+}
+
+.commentMeta {
+  color: #8e8e8e;
+  font-size: 12px;
+}
+
+.commentText {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.commentAction {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+}
+
+.commentLikeBtn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.commentLikeIcon {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.commentLikesCount {
+  font-size: 12px;
+  color: #8e8e8e;
+  min-width: 16px;
+  text-align: right;
+}
+
 .comment {
   display: flex;
   align-items: flex-start;
@@ -289,14 +347,14 @@
 }
 
 .commentBody {
-  flex: 1;                 /* занимает всё доступное пространство */
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
 .commentAction {
-  margin-left: auto;       /* ← уводит блок к правому краю */
+  margin-left: auto;
   display: flex;
   align-items: center;
 }
@@ -304,17 +362,17 @@
 .commentLikeBtn {
   border: none;
   background: transparent;
-  padding: 4px;            /* чуть больше кликабельная зона */
+  padding: 4px;
   cursor: pointer;
   line-height: 0;
 }
 
 .commentLikeIcon {
-  width: 12px;             /* ← меньше иконка */
+  width: 12px;
   height: 12px;
   display: block;
 }
 
-/* если где-то остался счётчик — спрятать на всякий случай */
-.commentLikesCount { display: none; }
-
+.commentLikesCount {
+  display: none;
+}

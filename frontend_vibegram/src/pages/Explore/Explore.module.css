@@ -10,7 +10,7 @@
   background: transparent;
   cursor: pointer;
   position: relative;
-  aspect-ratio: 1 / 1;  /* квадрат */
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: #f2f2f2;
 }
@@ -22,8 +22,16 @@
   object-fit: cover;
 }
 
-@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 .state {
   padding: 24px;

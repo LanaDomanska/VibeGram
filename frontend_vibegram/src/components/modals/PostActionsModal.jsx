@@ -1,4 +1,3 @@
-// src/components/modals/PostActionsModal.jsx
 import styles from "./PostActionsModal.module.css";
 
 const PostActionsModal = ({ onClose, onEdit, onDelete, onGoToPost, onCopyLink }) => {

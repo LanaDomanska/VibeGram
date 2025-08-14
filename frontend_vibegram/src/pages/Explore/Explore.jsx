@@ -1,7 +1,6 @@
-// src/pages/Explore/Explore.jsx
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import PostModal from "@/components/modals/PostModal.jsx"; // путь как у тебя на главной/профиле
+import PostModal from "@/components/modals/PostModal.jsx"; 
 import s from "./Explore.module.css";
 
 const API_ORIGIN = import.meta.env.VITE_API_ORIGIN ?? "http://localhost:3000";
@@ -21,11 +20,9 @@ export default function Explore() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // читаем ?post из URL
   const qs = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const postId = qs.get("post");
 
-  // загрузка карточек
   useEffect(() => {
     (async () => {
       try {
@@ -43,14 +40,12 @@ export default function Explore() {
     })();
   }, []);
 
-  // открыть модалку: ставим ?post=<id>
   const openPost = useCallback((id) => {
     const p = new URLSearchParams(location.search);
     p.set("post", id);
     navigate({ pathname: location.pathname, search: p.toString() }, { replace: false });
   }, [location.pathname, location.search, navigate]);
 
-  // закрыть модалку: убираем ?post
   const closePost = useCallback(() => {
     const p = new URLSearchParams(location.search);
     p.delete("post");
@@ -80,15 +75,14 @@ export default function Explore() {
         })}
       </div>
 
-      {/* РИСУЕМ МОДАЛКУ, если есть ?post */}
       {postId && (
         <PostModal
           postId={postId}
-          id={postId}                 // на случай другого имени пропса
+          id={postId}                 
           open={true}
           isOpen={true}
           onClose={closePost}
-          onRequestClose={closePost}  // если используется этот колбэк
+          onRequestClose={closePost}  
         />
       )}
     </>

@@ -1,10 +1,8 @@
-// src/services/messages.service.js
 import Message from "../models/Message.js";
 import User from "../models/User.js";
 import mongoose from "mongoose";
 import HttpException from "../utils/HttpException.js";
 
-// === Отправка сообщения ===
 export async function sendMessage(senderId, recipientId, text) {
   if (!senderId || !recipientId || !text?.trim()) {
     throw HttpException(400, "senderId, recipientId и text обязательны");
@@ -19,7 +17,6 @@ export async function sendMessage(senderId, recipientId, text) {
     content: text.trim(),
   });
 
-  // Real-time (если подключен socket.io и Map подключенных)
   const io = global._io;
   const users = global._connectedUsers;
   if (io && users) {
@@ -32,7 +29,6 @@ export async function sendMessage(senderId, recipientId, text) {
   return message;
 }
 
-// === Удаление своего сообщения ===
 export async function deleteMessage(messageId, userId) {
   if (!mongoose.Types.ObjectId.isValid(messageId)) {
     throw HttpException(400, "Invalid messageId");
@@ -56,7 +52,6 @@ export async function deleteMessage(messageId, userId) {
   return { _id: messageId };
 }
 
-// === История между двумя пользователями ===
 export async function getMessagesBetweenUsers(user1Id, user2Id) {
   return Message.find({
     $or: [
@@ -68,7 +63,6 @@ export async function getMessagesBetweenUsers(user1Id, user2Id) {
     .sort({ createdAt: 1 });
 }
 
-// === Inbox: список чатов ===
 export async function getInbox(userId) {
   const objectId = new mongoose.Types.ObjectId(userId);
 
@@ -100,7 +94,7 @@ export async function getInbox(userId) {
   return raw.map((i) => {
     const user = users.find((u) => String(u._id) === String(i._id));
     return {
-      user, // {_id, username, avatar}
+      user, 
       lastMessage: {
         content: i.lastMessage.content,
         createdAt: i.lastMessage.createdAt,

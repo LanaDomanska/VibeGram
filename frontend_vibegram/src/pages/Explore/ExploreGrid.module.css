@@ -6,7 +6,7 @@
 
 .card {
   position: relative;
-  aspect-ratio: 1 / 1; /* квадрат как в Instagram */
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: #f2f2f2;
 }
@@ -18,12 +18,15 @@
   display: block;
 }
 
-/* адаптив */
 @media (max-width: 900px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (max-width: 520px) {
-  .grid { grid-template-columns: 1fr; }
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .loading {

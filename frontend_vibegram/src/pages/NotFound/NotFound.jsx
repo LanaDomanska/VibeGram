@@ -1,5 +1,5 @@
-import styles from '../NotFound/NotFound.module.css';
-import loginImage from '../../assets/images/LoginSideImage.jpg'; 
+import styles from '@/NotFound/NotFound.module.css';
+import loginImage from '@/assets/images/LoginSideImage.jpg'; 
 
 export default function NotFoundPage() {
   return (

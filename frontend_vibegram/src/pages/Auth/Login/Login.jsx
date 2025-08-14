@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useAuth } from '../../../contexts/AuthContext';
 import LoginForm from '../../../components/auth/LoginForm/LoginForm';
 import styles from './Login.module.css';
-import loginImage from '../../../assets/images/LoginSideImage.jpg';
+import loginImage from '../../../assets/images/LoginSideImage.png';
 
 export default function Login() {
   const { isAuthenticated, authChecked } = useAuth();
@@ -30,7 +30,6 @@ export default function Login() {
 
           <Typography variant="body2" component="div" className={styles.signupPrompt}>
             <span className={styles.promptText}>Don't have an account?</span>
-            {/* важно не делать full reload */}
             <MUILink component={RouterLink} to="/register" className={styles.signupLink} underline="none">
               Sign up
             </MUILink>

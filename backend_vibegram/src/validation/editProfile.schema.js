@@ -16,13 +16,3 @@ export const EditProfileSchema = Yup.object().shape({
     .nullable(),
 });
 
-// export type EditProfileFormData = Yup.InferType<typeof EditProfileSchema>;
-
-// export const editProfileResolver: Resolver<EditProfileFormData> = async (
-//   values,
-//   context,
-//   options
-// ) => {
-//   const schema = EditProfileSchema;
-//   return schema.validate(values, { abortEarly: false });
-// };

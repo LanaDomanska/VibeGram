@@ -7,7 +7,6 @@ import ProtectedRoute from '../components/Routes/ProtectedRoute';
 import PublicRoute from '../components/Routes/PublicRoute';
 import { useAuth } from '../contexts/AuthContext';
 
-// Ленивая загрузка страниц (остаётся без изменений)
 const AuthPages = {
   Login: lazy(() => import('../pages/Auth/Login/Login')),
   Register: lazy(() => import('../pages/Auth/Register/Register')),
@@ -19,9 +18,9 @@ const AuthPages = {
 const MainPages = {
   Home: lazy(() => import('../pages/Home/Home')),
   Explore: lazy(() => import('../pages/Explore/Explore')),
-  // Search: lazy(() => import('../pages/Search/Search')),
+  Search: lazy(() => import('../pages/Search/Search')),
   Messages: lazy(() => import('../pages/Messages/Messages')),
-  // Notifications: lazy(() => import('../pages/Notifications/Notifications')),
+  Notifications: lazy(() => import('../pages/Notifications/Notifications')),
   CreatePost: lazy(() => import('../pages/CreatePost/CreatePost')),
 };
 
@@ -41,24 +40,12 @@ const RoutedPostModal = lazy(() => import('../components/modals/RoutedPostModal.
 
 
 const SettingsPages = {
-  // Settings: lazy(() => import('../pages/Settings/Settings')),
+  Settings: lazy(() => import('../pages/Settings/Settings')),
 };
 
 const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
 
-// const ProtectedRoute = () => {
-//   const { isAuthenticated, authChecked } = useAuth();
-//   if (!authChecked) return <Loader />;
-//   return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
-// };
 
-// const PublicRoute = () => {
-//   const { isAuthenticated, authChecked } = useAuth();
-//   if (!authChecked) return <Loader />;
-//   return !isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
-// };
-
-// Редирект на свой профиль
 const MyProfileRedirect = () => {
   const { user, authChecked } = useAuth();
   if (!authChecked) return <Loader />;
@@ -69,7 +56,6 @@ export default function Router() {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
-        {/* Публичные */}
         <Route element={<PublicRoute />}>
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<AuthPages.Login />} />
@@ -79,21 +65,18 @@ export default function Router() {
           </Route>
         </Route>
 
-        {/* Приватные */}
         <Route element={<ProtectedRoute />}>
           <Route element={<PrivateLayout />}>
             <Route path="/" element={<MainPages.Home />} />
             <Route path="/explore" element={<MainPages.Explore />} />
             <Route path="/search" element={<MainPages.Search />} />
             <Route path="/messages" element={<MainPages.Messages />} />
-            {/* <Route path="/notifications" element={<MainPages.Notifications />} /> */}
+            <Route path="/notifications" element={<MainPages.Notifications />} />
             <Route path="/create" element={<MainPages.CreatePost />} />
 
-            {/* Алиасы на свой профиль */}
             <Route path="/profile" element={<MyProfileRedirect />} />
             <Route path="/me" element={<MyProfileRedirect />} />
 
-            {/* Профиль по username */}
             <Route path="/profile/:username">
               <Route index element={<ProfilePages.Profile />} />
               <Route path="saved" element={<ProfilePages.Saved />} />

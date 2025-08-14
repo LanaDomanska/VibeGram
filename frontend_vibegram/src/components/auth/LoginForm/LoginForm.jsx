@@ -1,4 +1,3 @@
-// src/pages/Auth/Login/LoginForm.jsx
 import { useState } from 'react';
 import {
   TextField,
@@ -13,8 +12,8 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import styles from './LoginForm.module.css';
-import logoImage from '../../../assets/images/VibeGramLogo.png';
-import { useAuth } from '../../../contexts/AuthContext'; // важное: тянем login из контекста
+import logoImage from '@/assets/images/VibeGramLogo.png';
+import { useAuth } from '@/contexts/AuthContext'; 
 
 export default function LoginForm() {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
@@ -28,9 +27,9 @@ export default function LoginForm() {
     setError('');
 
     try {
-      await login({ usernameOrEmail, password }); // обновит user + isAuthenticated и сделает navigate('/')
+      await login({ usernameOrEmail, password }); 
     } catch (err) {
-      console.error('❌ Ошибка при логине:', err);
+      console.error('Login error:', err);
       setError(err?.response?.data?.message || 'Login failed');
     }
   };
@@ -99,7 +98,6 @@ export default function LoginForm() {
         </Typography>
       </Divider>
 
-      {/* Не перезагружаем страницу — используем RouterLink */}
       <MUILink
         component={RouterLink}
         to="/reset-password"

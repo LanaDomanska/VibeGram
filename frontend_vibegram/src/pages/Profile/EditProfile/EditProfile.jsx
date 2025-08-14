@@ -11,7 +11,6 @@ import api from "../../../api/axios";
 import styles from "./EditProfile.module.css";
 import Loader from "../../../components/common/Loader/Loader";
 import { useNavigate } from "react-router-dom";
-// import defaultAvatar from "../../../assets/images/default-avatar.png";
 
 
 const MAX_ABOUT_LENGTH = 150;
@@ -28,27 +27,25 @@ const EditProfile = () => {
   const [welcomeText, setWelcomeText] = useState("");
   const navigate = useNavigate();
 
-  // ✅ показываем приветствие один раз
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstLogin") === "true";
     if (firstLogin) {
       setWelcomeText(
         "Welcome to VibeGram! Please complete your profile."
       );
-      localStorage.removeItem("firstLogin"); // показываем только один раз
+      localStorage.removeItem("firstLogin"); 
     }
   }, []);
 
-  // ✅ когда user загружен — обновляем стейт
 useEffect(() => {
   if (user) {
     setUsername(user.username || "");
     setWebsite(user.website || "");
     setAbout(user.bio || "");
     setPreview(
-      user.avatar && user.avatar.trim() !== "" // проверка на пустую строку
+      user.avatar && user.avatar.trim() !== "" 
         ? `http://localhost:3000${user.avatar}`
-        : defaultAvatar // всегда возвращаем дефолтное изображение, если avatar невалиден
+        : defaultAvatar 
     );
   }
 }, [user]);

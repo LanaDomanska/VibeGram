@@ -5,7 +5,6 @@
   align-items: center;
 }
 
-/* Базовая сетка */
 .postsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -15,7 +14,6 @@
   margin-top: 20px;
 }
 
-/* Ошибки и пустые состояния */
 .error {
   color: red;
   margin: 20px 0;
@@ -48,19 +46,15 @@
   text-align: center;
 }
 
-/* ==== Адаптив ==== */
-
-/* Планшеты */
 @media (max-width: 1024px) {
   .feed {
     padding: 20px;
   }
 }
 
-/* Телефоны */
 @media (max-width: 768px) {
   .postsGrid {
-    grid-template-columns: 1fr; /* одна колонка */
+    grid-template-columns: 1fr;
     gap: 20px;
   }
 
@@ -74,7 +68,6 @@
   }
 }
 
-/* Очень маленькие экраны */
 @media (max-width: 480px) {
   .feed {
     padding: 10px;

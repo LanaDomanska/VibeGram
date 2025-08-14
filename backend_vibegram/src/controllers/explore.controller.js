@@ -6,7 +6,7 @@ export const getExploreFeed = async (req, res, next) => {
 
     const items = await Post.aggregate([
       { $match: { imageUrl: { $exists: true, $ne: "" } } },
-      { $sample: { size: limit } }, // случайный порядок
+      { $sample: { size: limit } }, 
       {
         $lookup: {
           from: "users",
@@ -20,7 +20,7 @@ export const getExploreFeed = async (req, res, next) => {
       {
         $project: {
           _id: 1,
-          image: "$imageUrl", // фронту возвращаем как image
+          image: "$imageUrl", 
           caption: 1,
           createdAt: 1,
           "author._id": 1,
